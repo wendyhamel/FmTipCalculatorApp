@@ -25,34 +25,44 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 </head>
-<body>
+<body class="bg-cyan-light">
+  <header class="mx-auto py-12 flex justify-center">
+      <h1 class="sr-only">Splitter</h1>
+      <img src="/images/logo.svg" alt="Splitter logo">
+  </header>
   <main>
+      <section class="flex flex-col p-4 bg-white rounded-t-2xl text-cyan-gray sm:rounded-2xl sm:flex-row">
+         <div class="">
+              Bill
+             <img src="images/icon-dollar.svg" alt="dollar sign">
+              Select Tip %
+              5%
+              10%
+              15%
+              25%
+              50%
+              Custom
 
-      Bill
+              Number of People
+             <img src="images/icon-person.svg" alt="icon of a person">
 
-      Select Tip %
-      5%
-      10%
-      15%
-      25%
-      50%
-      Custom
+         </div>
+         <div class="rounded-xl bg-cyan-dark p-4 text-white">
+              Tip Amount
+              / person
 
-      Number of People
+              Total
+              / person
 
-      Tip Amount
-      / person
+              Reset
 
-      Total
-      / person
-
-      Reset
-
+         </div>
+      </section>
   </main>
 
-  <footer class="">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
+  <footer class="fixed bottom-0 inset-x-0 text-center text-xs text-cyan-dark pb-1">
+    Challenge by <a class="hover:underline" href="https://www.frontendmentor.io/challenges/tip-calculator-app-ugJNGbJUX" target="_blank">Frontend Mentor</a>.
+    Coded by <a class="hover:underline" href="https://www.frontendmentor.io/profile/wendyhamel" target="_blank">Wendy Hamel</a>.
   </footer>
   <script type="text/javascript" src="src/calculate.js"></script>
 </body>

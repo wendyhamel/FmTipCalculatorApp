@@ -26,41 +26,125 @@
 
 </head>
 <body class="bg-cyan-light">
-  <header class="mx-auto py-12 flex justify-center">
+  <header class="mx-auto pt-12 pb-10 flex justify-center sm:pt-32 sm:pb-20">
       <h1 class="sr-only">Splitter</h1>
       <img src="/images/logo.svg" alt="Splitter logo">
   </header>
-  <main>
-      <section class="flex flex-col p-4 bg-white rounded-t-2xl text-cyan-gray sm:rounded-2xl sm:flex-row">
-         <div class="">
-              Bill
-             <img src="images/icon-dollar.svg" alt="dollar sign">
-              Select Tip %
-              5%
-              10%
-              15%
-              25%
-              50%
-              Custom
+  <main class="antialiased">
+      <section
+              x-data="calculateJS()"
+              class="max-w-4xl mx-auto flex flex-col px-6 py-8 bg-white rounded-t-3xl text-cyan-dark/70 sm:rounded-3xl sm:flex-row sm:mb-12 sm:px-8 sm:gap-8"
+      >
+         <div class="space-y-8 px-2 sm:w-1/2 sm:space-y-10 sm:py-2">
+             <div>
+                 <label for="bill" class="block">Bill</label>
+                 <div class="relative mt-1 rounded-md bg-cyan-bleak">
+                     <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-5">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 17" class="h-4 text-cyan-gray">
+                             <path fill="currentColor" d="M6.016 16.328v-1.464c1.232-.08 2.22-.444 2.964-1.092.744-.648 1.116-1.508 1.116-2.58v-.144c0-.992-.348-1.772-1.044-2.34-.696-.568-1.708-.932-3.036-1.092V4.184c.56.144 1.012.4 1.356.768.344.368.516.816.516 1.344v.288h1.824v-.432c0-.448-.088-.876-.264-1.284a3.783 3.783 0 0 0-.744-1.116A4.251 4.251 0 0 0 7.54 2.9a5.324 5.324 0 0 0-1.524-.492V.872H4.288V2.36a5.532 5.532 0 0 0-1.416.324c-.448.168-.84.392-1.176.672-.336.28-.604.616-.804 1.008-.2.392-.3.844-.3 1.356v.144c0 .96.316 1.708.948 2.244.632.536 1.548.884 2.748 1.044v3.912c-.704-.16-1.248-.472-1.632-.936-.384-.464-.576-1.08-.576-1.848v-.288H.256v.576c0 .464.08.924.24 1.38.16.456.404.88.732 1.272.328.392.744.728 1.248 1.008s1.108.476 1.812.588v1.512h1.728zM4.288 7.424c-.688-.128-1.164-.332-1.428-.612-.264-.28-.396-.644-.396-1.092 0-.464.176-.832.528-1.104.352-.272.784-.448 1.296-.528v3.336zm1.728 5.712V9.344c.768.128 1.328.328 1.68.6.352.272.528.688.528 1.248 0 .544-.196.984-.588 1.32-.392.336-.932.544-1.62.624z"/>
+                         </svg>
+                     </div>
+                     <input type="number" name="bill" id="bill" class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray" placeholder="0">
+                 </div>
+             </div>
 
-              Number of People
-             <img src="images/icon-person.svg" alt="icon of a person">
+             <div>
+                 <div class="flex items-center justify-between">
+                     <h2>Select Tip %</h2>
+                 </div>
+
+                 <fieldset class="mt-4">
+                     <legend class="sr-only">Choose a tip percentage</legend>
+                     <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
+                         <!--
+                           In Stock: "cursor-pointer", Out of Stock: "opacity-25 cursor-not-allowed"
+                           Active: "ring-2 ring-offset-2 ring-cyan"
+                           Checked: "bg-cyan text-cyan-dark hover:text-cyan-dark", Not Checked: "bg-cyan-dark text-white"
+                         -->
+                         <label class="rounded-md py-2 px-3 flex items-center justify-center bg-cyan-dark text-white hover:bg-opacity-50 text-2xl cursor-pointer focus:outline-none">
+                             <input type="radio" name="tip" value="5" class="sr-only" aria-labelledby="5%">
+                             <span id="5">5%</span>
+                         </label>
+
+                         <label class="rounded-md py-2 px-3 flex items-center justify-center bg-cyan-dark text-white hover:bg-opacity-50 text-2xl cursor-pointer focus:outline-none">
+                             <input type="radio" name="tip" value="10" class="sr-only" aria-labelledby="10%">
+                             <span id="10">10%</span>
+                         </label>
+
+                         <label class="rounded-md py-2 px-3 flex items-center justify-center bg-cyan text-cyan-dark hover:bg-opacity-50 hover:text-cyan-dark text-2xl cursor-pointer">
+                             <input type="radio" name="tip" value="15" class="sr-only" aria-labelledby="15%">
+                             <span id="15">15%</span>
+                         </label>
+
+                         <label class="rounded-md py-2 px-3 flex items-center justify-center bg-cyan-dark text-white hover:bg-opacity-50 text-2xl cursor-pointer focus:outline-none">
+                             <input type="radio" name="tip" value="25" class="sr-only" aria-labelledby="25%">
+                             <span id="25">25%</span>
+                         </label>
+
+                         <label class="rounded-md py-2 px-3 flex items-center justify-center bg-cyan-dark text-white hover:bg-opacity-50 text-2xl cursor-pointer focus:outline-none">
+                             <input type="radio" name="tip" value="50" class="sr-only" aria-labelledby="50%">
+                             <span id="50">50%</span>
+                         </label>
+
+                         <label class="rounded-md flex items-center justify-center bg-cyan-bleak text-cyan-gray text-2xl">
+                             <input type="number" value="Custom" aria-labelledby="Custom" class="block w-full rounded-md bg-transparent py-2 px-0.5 text-end text-2xl text-cyan-dark border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray" placeholder="Custom">
+                             <input type="number" name="tip" value="Custom" disabled class="sr-only" aria-labelledby="Custom">
+                             <span id="Custom" class="sr-only">Custom</span>
+                         </label>
+                     </div>
+                 </fieldset>
+             </div>
+
+             <div>
+                 <label for="People" class="block">Number of People</label>
+                 <div class="relative mt-1 rounded-md bg-cyan-bleak">
+                     <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-5">
+                         <img src="images/icon-person.svg" alt="icon of a person">
+                     </div>
+                     <input type="number" name="People" id="People" class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray" placeholder="0">
+                 </div>
+             </div>
 
          </div>
-         <div class="rounded-xl bg-cyan-dark p-4 text-white">
-              Tip Amount
-              / person
 
-              Total
-              / person
+         <div class="rounded-2xl bg-cyan-dark px-6 pt-10 pb-6 flex flex-col gap-8 text-white mt-8 sm:mt-0 sm:w-1/2 sm:px-10 sm:pt-12 sm:pb-10">
+             <div class="space-y-6 grow sm:space-y-12">
+                 <div class="flex justify-between items-center gap-1 sm:flex-col sm:items-start md:flex-row md:items-center">
+                     <div class="flex flex-col sm:gap-1 sm:justify-between sm:w-full sm:items-baseline sm:flex-row md:flex-col">
+                         <p>Tip Amount</p>
+                         <p class="text-cyan-gray text-sm">/ person</p>
+                     </div>
+                     <div class="inline-flex items-center gap-1 self-end">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 17" class="h-6 text-cyan md:h-8">
+                             <path fill="currentColor" d="M6.016 16.328v-1.464c1.232-.08 2.22-.444 2.964-1.092.744-.648 1.116-1.508 1.116-2.58v-.144c0-.992-.348-1.772-1.044-2.34-.696-.568-1.708-.932-3.036-1.092V4.184c.56.144 1.012.4 1.356.768.344.368.516.816.516 1.344v.288h1.824v-.432c0-.448-.088-.876-.264-1.284a3.783 3.783 0 0 0-.744-1.116A4.251 4.251 0 0 0 7.54 2.9a5.324 5.324 0 0 0-1.524-.492V.872H4.288V2.36a5.532 5.532 0 0 0-1.416.324c-.448.168-.84.392-1.176.672-.336.28-.604.616-.804 1.008-.2.392-.3.844-.3 1.356v.144c0 .96.316 1.708.948 2.244.632.536 1.548.884 2.748 1.044v3.912c-.704-.16-1.248-.472-1.632-.936-.384-.464-.576-1.08-.576-1.848v-.288H.256v.576c0 .464.08.924.24 1.38.16.456.404.88.732 1.272.328.392.744.728 1.248 1.008s1.108.476 1.812.588v1.512h1.728zM4.288 7.424c-.688-.128-1.164-.332-1.428-.612-.264-.28-.396-.644-.396-1.092 0-.464.176-.832.528-1.104.352-.272.784-.448 1.296-.528v3.336zm1.728 5.712V9.344c.768.128 1.328.328 1.68.6.352.272.528.688.528 1.248 0 .544-.196.984-.588 1.32-.392.336-.932.544-1.62.624z"/>
+                         </svg>
+                         <span class="text-3xl text-cyan md:text-5xl" x-text="tipAmount > 0 ? tipAmount : '0.00'"></span>
+                     </div>
+                 </div>
 
-              Reset
+                 <div class="flex justify-between items-center gap-1 sm:flex-col sm:items-start md:flex-row md:items-center">
+                     <div class="flex flex-col sm:gap-1 sm:justify-between sm:w-full sm:items-baseline sm:flex-row md:flex-col">
+                         <p>Total</p>
+                         <p class="text-cyan-gray text-sm">/ person</p>
+                     </div>
+                     <div class="inline-flex items-center gap-1 self-end">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 17" class="h-6 text-cyan md:h-8">
+                             <path fill="currentColor" d="M6.016 16.328v-1.464c1.232-.08 2.22-.444 2.964-1.092.744-.648 1.116-1.508 1.116-2.58v-.144c0-.992-.348-1.772-1.044-2.34-.696-.568-1.708-.932-3.036-1.092V4.184c.56.144 1.012.4 1.356.768.344.368.516.816.516 1.344v.288h1.824v-.432c0-.448-.088-.876-.264-1.284a3.783 3.783 0 0 0-.744-1.116A4.251 4.251 0 0 0 7.54 2.9a5.324 5.324 0 0 0-1.524-.492V.872H4.288V2.36a5.532 5.532 0 0 0-1.416.324c-.448.168-.84.392-1.176.672-.336.28-.604.616-.804 1.008-.2.392-.3.844-.3 1.356v.144c0 .96.316 1.708.948 2.244.632.536 1.548.884 2.748 1.044v3.912c-.704-.16-1.248-.472-1.632-.936-.384-.464-.576-1.08-.576-1.848v-.288H.256v.576c0 .464.08.924.24 1.38.16.456.404.88.732 1.272.328.392.744.728 1.248 1.008s1.108.476 1.812.588v1.512h1.728zM4.288 7.424c-.688-.128-1.164-.332-1.428-.612-.264-.28-.396-.644-.396-1.092 0-.464.176-.832.528-1.104.352-.272.784-.448 1.296-.528v3.336zm1.728 5.712V9.344c.768.128 1.328.328 1.68.6.352.272.528.688.528 1.248 0 .544-.196.984-.588 1.32-.392.336-.932.544-1.62.624z"/>
+                         </svg>
+                         <span class="text-3xl text-cyan md:text-5xl" x-text="total > 0 ? total : '0.00'"></span>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="w-full">
+                 <button type="button" class="block w-full p-2.5 rounded-md bg-cyan text-cyan-dark uppercase text-center text-xl hover:bg-opacity-70 disabled:opacity-20" disabled>Reset</button>
+             </div>
 
          </div>
       </section>
   </main>
 
-  <footer class="fixed bottom-0 inset-x-0 text-center text-xs text-cyan-dark pb-1">
+  <footer class="fixed bottom-0 inset-x-0 text-center text-xs text-cyan-dark bg-white/80 pb-1 opacity-0 translate-y-2 hover:opacity-100 hover:translate-y-0 transform transition ease-in-out duration-150">
     Challenge by <a class="hover:underline" href="https://www.frontendmentor.io/challenges/tip-calculator-app-ugJNGbJUX" target="_blank">Frontend Mentor</a>.
     Coded by <a class="hover:underline" href="https://www.frontendmentor.io/profile/wendyhamel" target="_blank">Wendy Hamel</a>.
   </footer>

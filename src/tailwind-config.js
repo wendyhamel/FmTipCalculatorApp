@@ -13,5 +13,5 @@ tailwind.config = {
                 'white': 'hsl(0, 0%, 100%)',
             },
         }
-    }
+    },
 }

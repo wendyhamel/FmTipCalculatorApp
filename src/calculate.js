@@ -1,0 +1,5 @@
+window.calculateJS = function() {
+    return {
+
+    }
+}

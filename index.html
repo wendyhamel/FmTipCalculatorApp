@@ -8,37 +8,52 @@
   
   <title>Frontend Mentor | Tip calculator app</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind play cdn and local config file -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="src/tailwind-config.js"></script>
+
+  <!-- Alpine.js  -->
+  <!-- Alpine Plugins -->
+  <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+  <!-- Alpine.js core  -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </head>
 <body>
+  <main>
 
-  Bill
+      Bill
 
-  Select Tip %
-  5%
-  10%
-  15%
-  25%
-  50%
-  Custom
+      Select Tip %
+      5%
+      10%
+      15%
+      25%
+      50%
+      Custom
 
-  Number of People
+      Number of People
 
-  Tip Amount
-  / person
+      Tip Amount
+      / person
 
-  Total
-  / person
+      Total
+      / person
 
-  Reset
-  
-  <div class="attribution">
+      Reset
+
+  </main>
+
+  <footer class="">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
     Coded by <a href="#">Your Name Here</a>.
-  </div>
+  </footer>
+  <script type="text/javascript" src="src/calculate.js"></script>
 </body>
 </html>

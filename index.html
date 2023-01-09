@@ -32,8 +32,8 @@
   </header>
   <main class="antialiased">
       <section
-              x-data="calculateJS()"
-              class="max-w-4xl mx-auto flex flex-col px-6 py-8 bg-white rounded-t-3xl text-cyan-dark/70 sm:rounded-3xl sm:flex-row sm:mb-12 sm:px-8 sm:gap-8"
+          x-data="calculateJS()"
+          class="max-w-4xl mx-auto flex flex-col px-6 py-8 bg-white rounded-t-3xl text-cyan-dark/70 sm:rounded-3xl sm:flex-row sm:mb-12 sm:px-8 sm:gap-8"
       >
          <div class="space-y-8 px-2 sm:w-1/2 sm:space-y-10 sm:py-2">
              <div>
@@ -45,14 +45,13 @@
                          </svg>
                      </div>
                      <input
-                             type="number"
-                             name="bill"
-                             id="bill"
-                             :value="bill"
-                             x-model="bill"
-                             onchange="calculate()"
-                             class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
-                             placeholder="0"
+                         type="number"
+                         name="bill"
+                         id="bill"
+                         :value="bill"
+                         x-model="bill"
+                         class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
+                         placeholder="0"
                      >
                  </div>
              </div>
@@ -65,44 +64,24 @@
                  <fieldset class="mt-4">
                      <legend class="sr-only">Choose a tip percentage</legend>
                      <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
-                         <!--
-                           In Stock: "cursor-pointer", Out of Stock: "opacity-25 cursor-not-allowed"
-                           Active: "ring-2 ring-offset-2 ring-cyan"
-                           Checked: "bg-cyan text-cyan-dark hover:text-cyan-dark", Not Checked: "bg-cyan-dark text-white"
-                         -->
-                         <label class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-opacity-50 text-2xl cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan" :class="tipTotal === '5' ? 'bg-cyan text-cyan-dark hover:text-cyan-dark' : 'bg-cyan-dark text-white'">
-                             <input type="radio" name="tip" value="5" x-model="tip" onchange="totalTip()" class="sr-only" aria-labelledby="5%">
-                             <span id="5">5%</span>
-                         </label>
-
-                         <label class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-opacity-50 text-2xl cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan" :class="tipTotal === '10' ? 'bg-cyan text-cyan-dark hover:text-cyan-dark' : 'bg-cyan-dark text-white'">
-                             <input type="radio" name="tip" value="10" x-model="tip" onchange="totalTip()" class="sr-only" aria-labelledby="10%">
-                             <span id="10">10%</span>
-                         </label>
-
-                         <label class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-opacity-50 text-2xl cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan" :class="tipTotal === '15' ? 'bg-cyan text-cyan-dark hover:text-cyan-dark' : 'bg-cyan-dark text-white'">
-                             <input type="radio" name="tip" value="15" x-model="tip" onchange="totalTip()" class="sr-only" aria-labelledby="15%">
-                             <span id="15">15%</span>
-                         </label>
-
-                         <label class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-opacity-50 text-2xl cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan" :class="tipTotal === '25' ? 'bg-cyan text-cyan-dark hover:text-cyan-dark' : 'bg-cyan-dark text-white'">
-                             <input type="radio" name="tip" value="25" x-model="tip" onchange="totalTip()" class="sr-only" aria-labelledby="25%">
-                             <span id="25">25%</span>
-                         </label>
-
-                         <label class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-opacity-50 text-2xl cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan" :class="tipTotal === '50' ? 'bg-cyan text-cyan-dark hover:text-cyan-dark' : 'bg-cyan-dark text-white'">
-                             <input type="radio" name="tip" value="50" x-model="tip" onchange="totalTip()" class="sr-only" aria-labelledby="50%">
-                             <span id="50">50%</span>
-                         </label>
+                         <template x-for="presetTip in presetTips">
+                             <label
+                                 class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-opacity-50 text-2xl cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan"
+                                 :class="selectedTip === presetTip ? 'bg-cyan text-cyan-dark hover:text-cyan-dark' : 'bg-cyan-dark text-white'"
+                             >
+                                 <input type="radio" name="tip" :value="presetTip" x-model="selectedTip" onchange="calculate" class="sr-only" :aria-labelledby="presetTip + '%'">
+                                 <span :id="presetTip"><span x-text="presetTip"></span>%</span>
+                             </label>
+                         </template>
 
                          <label class="rounded-md flex items-center justify-center bg-cyan-bleak text-cyan-gray text-2xl">
                              <input
-                                     type="number"
-                                     value="custom"
-                                     x-model="customTip"
-                                     onchange="totalTip(); calculate()"
-                                     class="block w-full rounded-md bg-transparent py-2 px-0.5 text-end text-2xl text-cyan-dark border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
-                                     placeholder="Custom"
+                                 type="number"
+                                 value="custom"
+                                 x-model="customTip"
+                                 onchange.debounce="calculate"
+                                 class="block w-full rounded-md bg-transparent py-2 px-0.5 text-end text-2xl text-cyan-dark border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
+                                 placeholder="Custom"
                              >
                              <span id="Custom" class="sr-only">Custom</span>
                          </label>
@@ -117,14 +96,13 @@
                          <img src="images/icon-person.svg" alt="icon of a person">
                      </div>
                      <input
-                             type="number"
-                             name="People"
-                             id="People"
-                             placeholder="0"
-                             :value="people"
-                             x-model="people"
-                             onchange="calculate()"
-                             class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
+                         type="number"
+                         name="People"
+                         id="People"
+                         placeholder="0"
+                         :value="people"
+                         x-model="people"
+                         class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
                      >
                  </div>
              </div>
@@ -162,10 +140,10 @@
 
              <div class="w-full">
                  <button
-                         type="button"
-                         class="block w-full p-2.5 rounded-md bg-cyan text-cyan-dark uppercase text-center text-xl hover:bg-opacity-70 disabled:opacity-20"
-                         :disabled="!total"
-                         @click="reset()"
+                     type="button"
+                     class="block w-full p-2.5 rounded-md bg-cyan text-cyan-dark uppercase text-center text-xl hover:bg-opacity-70 disabled:opacity-20"
+                     :disabled="!total"
+                     @click="reset()"
                  >
                      Reset
                  </button>

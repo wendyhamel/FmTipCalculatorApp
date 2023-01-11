@@ -21,7 +21,9 @@
   <!-- Alpine.js  -->
   <!-- Alpine Plugins -->
   <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-  <!-- Alpine.js core  -->
+  <script defer src="https://unpkg.com/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine.js core  -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 </head>
@@ -45,12 +47,13 @@
                          </svg>
                      </div>
                      <input
-                         type="number"
+                         type="text"
                          name="bill"
                          id="bill"
                          :value="bill"
                          x-model="bill"
-                         class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
+                         x-mask:dynamic="$money($input)"
+                         class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 pr-4 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
                          placeholder="0"
                      >
                  </div>
@@ -69,7 +72,7 @@
                                  class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-opacity-50 text-2xl cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan"
                                  :class="selectedTip === presetTip ? 'bg-cyan text-cyan-dark hover:text-cyan-dark' : 'bg-cyan-dark text-white'"
                              >
-                                 <input type="radio" name="tip" :value="presetTip" x-model="selectedTip" onchange="calculate" class="sr-only" :aria-labelledby="presetTip + '%'">
+                                 <input type="radio" name="tip" :value="presetTip" x-model="selectedTip" @input="calculate; tip = 'preset'" class="sr-only" :aria-labelledby="presetTip + '%'">
                                  <span :id="presetTip"><span x-text="presetTip"></span>%</span>
                              </label>
                          </template>
@@ -77,9 +80,9 @@
                          <label class="rounded-md flex items-center justify-center bg-cyan-bleak text-cyan-gray text-2xl">
                              <input
                                  type="number"
-                                 value="custom"
                                  x-model="customTip"
-                                 onchange.debounce="calculate"
+                                 @input="calculate; tip = 'custom'"
+                                 max="100"
                                  class="block w-full rounded-md bg-transparent py-2 px-0.5 text-end text-2xl text-cyan-dark border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
                                  placeholder="Custom"
                              >
@@ -96,13 +99,15 @@
                          <img src="images/icon-person.svg" alt="icon of a person">
                      </div>
                      <input
-                         type="number"
+                         type="text"
                          name="People"
                          id="People"
                          placeholder="0"
+                         step="1"
                          :value="people"
                          x-model="people"
-                         class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
+                         x-mask="999"
+                         class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 pr-4 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
                      >
                  </div>
              </div>

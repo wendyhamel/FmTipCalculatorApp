@@ -77,7 +77,15 @@
                                  class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-opacity-50 text-2xl cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan"
                                  :class="selectedTip === presetTip ? 'bg-cyan text-cyan-dark hover:text-cyan-dark' : 'bg-cyan-dark text-white'"
                              >
-                                 <input type="radio" name="tip" :value="presetTip" x-model="selectedTip" @input="customTip = null; tipPercentage = presetTip; calculate()" :aria-labelledby="presetTip + '%'" class="sr-only">
+                                 <input
+                                     type="radio"
+                                     name="tip"
+                                     :value="presetTip"
+                                     x-model="selectedTip"
+                                     @input="customTip = null; tipPercentage = presetTip; calculate()"
+                                     :aria-labelledby="presetTip + '%'"
+                                     class="sr-only"
+                                 >
                                  <span :id="presetTip"><span x-text="presetTip"></span>%</span>
                              </label>
                          </template>

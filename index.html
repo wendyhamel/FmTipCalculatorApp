@@ -52,8 +52,8 @@
                          id="bill"
                          :value="bill"
                          x-model="bill"
-                         @input="calculate"
                          x-mask:dynamic="$money($input)"
+                         @input="calculate()"
                          class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 pr-4 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
                          placeholder="0"
                      >
@@ -73,7 +73,7 @@
                                  class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-opacity-50 text-2xl cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan"
                                  :class="selectedTip === presetTip ? 'bg-cyan text-cyan-dark hover:text-cyan-dark' : 'bg-cyan-dark text-white'"
                              >
-                                 <input type="radio" name="tip" :value="presetTip" x-model="selectedTip" @input="calculate; tip = 'preset'" class="sr-only" :aria-labelledby="presetTip + '%'">
+                                 <input type="radio" name="tip" :value="presetTip" x-model="selectedTip" @input="customTip = null; tipPercentage = presetTip; calculate()" :aria-labelledby="presetTip + '%'" class="sr-only">
                                  <span :id="presetTip"><span x-text="presetTip"></span>%</span>
                              </label>
                          </template>
@@ -82,7 +82,8 @@
                              <input
                                  type="number"
                                  x-model="customTip"
-                                 @input="calculate; tip = 'custom'"
+                                 @input="selectedTip = null; tipPercentage = customTip; calculate()"
+                                 min="0"
                                  max="100"
                                  class="block w-full rounded-md bg-transparent py-2 px-0.5 text-end text-2xl text-cyan-dark border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
                                  placeholder="Custom"
@@ -108,8 +109,8 @@
                          :value="people"
                          x-model="people"
                          x-mask="999"
+                         @input="calculate()"
                          class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 pr-4 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
-                         @input="calculate"
                      >
                  </div>
              </div>

@@ -58,7 +58,7 @@
                          x-model="bill"
                          x-mask:dynamic="$money($input)"
                          @input="calculate()"
-                         class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 pr-4 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
+                         class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 pr-4 border border-transparent caret-cyan focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray transition"
                          placeholder="0"
                      >
                  </div>
@@ -74,8 +74,8 @@
                      <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
                          <template x-for="presetTip in presetTips">
                              <label
-                                 class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-opacity-50 text-2xl cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan"
-                                 :class="selectedTip === presetTip ? 'bg-cyan text-cyan-dark hover:text-cyan-dark' : 'bg-cyan-dark text-white'"
+                                 class="rounded-md py-2 px-3 flex items-center justify-center hover:bg-cyan hover:text-cyan-dark text-2xl focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-cyan transition"
+                                 :class="selectedTip === presetTip ? 'bg-cyan text-cyan-dark' : 'bg-cyan-dark text-white hover:bg-opacity-60 cursor-pointer'"
                              >
                                  <input
                                      type="radio"
@@ -92,12 +92,13 @@
 
                          <label class="rounded-md flex items-center justify-center bg-cyan-bleak text-cyan-gray text-2xl">
                              <input
+                                 id="customTip"
                                  type="number"
                                  x-model="customTip"
                                  @input="selectedTip = null; tipPercentage = customTip; calculate()"
                                  min="0"
                                  max="100"
-                                 class="block w-full rounded-md bg-transparent py-2 px-0.5 text-end text-2xl text-cyan-dark border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
+                                 class="block w-full rounded-md bg-transparent p-2 text-end text-2xl text-cyan-dark border border-transparent caret-cyan focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray transition"
                                  placeholder="Custom"
                              >
                              <span id="Custom" class="sr-only">Custom</span>
@@ -107,7 +108,9 @@
              </div>
 
              <div>
-                 <label for="People" class="block">Number of People</label>
+                 <div class="flex gap-2 items-center justify-between">
+                     <label for="People" class="block">Number of People</label> <span x-show="noPeople" x-transition.opacity class="text-end text-red transition">Can't be zero</span>
+                 </div>
                  <div class="relative mt-1 rounded-md bg-cyan-bleak">
                      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-5">
                          <img src="images/icon-person.svg" alt="icon of a person">
@@ -122,7 +125,8 @@
                          x-model="people"
                          x-mask="999"
                          @input="calculate()"
-                         class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 pr-4 border border-transparent focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray"
+                         class="block w-full rounded-md bg-transparent text-end text-2xl text-cyan-dark pl-14 py-2 pr-4 border border-transparent caret-cyan focus:outline-none focus:border-cyan focus:ring focus:ring-cyan placeholder:text-cyan-gray transition"
+                         :class="{'border-red ring ring-red' : noPeople}"
                      >
                  </div>
              </div>
@@ -161,11 +165,12 @@
              <div class="w-full">
                  <button
                      type="button"
-                     class="block w-full p-2.5 rounded-md bg-cyan text-cyan-dark uppercase text-center text-xl hover:bg-opacity-70 disabled:opacity-20 disabled:hover:bg-opacity-100"
+                     class="relative block w-full p-2.5 rounded-md bg-cyan text-cyan-dark uppercase text-center text-xl cursor-pointer overflow-hidden group disabled:opacity-20 disabled:hover:opacity-100 disabled:pointer-events-none transition"
                      :disabled="!total"
                      @click="reset()"
                  >
-                     Reset
+                     <span class="absolute inset-0 bg-white opacity-0 group-hover:opacity-30"></span>
+                     <span class="relative">Reset</span>
                  </button>
              </div>
 

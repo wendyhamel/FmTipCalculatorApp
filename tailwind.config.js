@@ -13,6 +13,7 @@ module.exports = {
         'cyan-light': 'hsl(185, 41%, 84%)',
         'cyan-bleak': 'hsl(189, 41%, 97%)',
         'white': 'hsl(0, 0%, 100%)',
+        'red': 'rgb(204,141,118)',
       },
     },
   },
